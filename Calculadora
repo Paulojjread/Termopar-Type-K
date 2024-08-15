@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversão de Tensão e Temperatura</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #a0c4ff, #c2e9fb);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .container-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: calc(50% - 20px);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #4ca1af;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #4ca1af;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #333;
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4ca1af;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #3a8b96;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4ca1af;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: calc(100% - 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="https://www.cristofoli.com/image/catalog/logo/LogoTopo.png" alt="Logo da Cristofoli Biosegurança">
+    </div>
+
+    <div class="container-wrapper">
+        <div class="container">
+            <h2>Conversão de Tensão para Temperatura</h2>
+            <label for="voltage">Digite a Tensão (V):</label>
+            <input type="number" step="0.001" id="voltage" placeholder="Ex: 0.004">
+            <button onclick="convertToTemperature()">Converter Tensão para Temperatura</button>
+            <div class="result" id="result-temperature"></div>
+        </div>
+
+        <div class="container">
+            <h2>Conversão de Temperatura para Tensão</h2>
+            <label for="temperature">Digite a Temperatura (°C):</label>
+            <input type="number" step="0.1" id="temperature" placeholder="Ex: 25">
+            <button onclick="convertToVoltage()">Converter Temperatura para Tensão</button>
+            <div class="result" id="result-voltage"></div>
+        </div>
+
+        <div class="container">
+            <h2>Conversão de Tensão para Temperatura (Nova Fórmula)</h2>
+            <label for="voltage-new">Digite a Tensão (V):</label>
+            <input type="number" step="0.001" id="voltage-new" placeholder="Ex: 2.000">
+            <button onclick="convertToTemperatureNew()">Converter Tensão para Temperatura</button>
+            <div class="result" id="result-temperature-new"></div>
+        </div>
+
+        <div class="container">
+            <h2>Conversão de Temperatura para Tensão (Nova Fórmula)</h2>
+            <label for="temperature-new">Digite a Temperatura (°C):</label>
+            <input type="number" step="0.1" id="temperature-new" placeholder="Ex: 25">
+            <button onclick="convertToVoltageNew()">Converter Temperatura para Tensão</button>
+            <div class="result" id="result-voltage-new"></div>
+        </div>
+    </div>
+
+    <script>
+        function convertToTemperature() {
+            const voltage = parseFloat(document.getElementById('voltage').value);
+            let temperature;
+
+            if (voltage >= 0 && voltage <= 0.054886) {
+                temperature = (voltage / 0.000041); 
+            } else {
+                temperature = "Fora da faixa suportada";
+            }
+
+            document.getElementById('result-temperature').textContent = `Temperatura: ${temperature.toFixed(2)} °C`;
+        }
+
+        function convertToVoltage() {
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            let voltage;
+
+            if (temperature >= 0 && temperature <= 1000) {
+                voltage = temperature * 0.000041; 
+            } else {
+                voltage = "Fora da faixa suportada";
+            }
+
+            document.getElementById('result-voltage').textContent = `Tensão: ${voltage.toFixed(6)} V`;
+        }
+
+        function convertToTemperatureNew() {
+            const voltage = parseFloat(document.getElementBy
